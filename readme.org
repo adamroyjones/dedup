@@ -1,10 +1,11 @@
 * dedup
-The Unix utility =uniq= only removes adjacent duplicates from a =\n=-separated
+The Unix utility =uniq= removes adjacent duplicates from a =\n=-separated
 collection of input strings. This repository contains a completely trivial
-program that removes /all/ duplicates from such a collection. It preserves the
-order of the input.
+program that removes /all/ duplicates from such a collection. The program
+preserves the order of the input.
 
-I make no claims about this being optimal. For my purposes, this is good enough.
+I make no claims about the implementation being optimal. For my current
+purposes, it is good enough.
 
 ** Installing
 #+begin_src sh
