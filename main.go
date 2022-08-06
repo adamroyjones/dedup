@@ -5,9 +5,29 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 )
 
 func main() {
+	flag.Usage = func() {
+		template := `
+dedup: Deduplicate identical lines from the provided input.
+
+Usage:
+    Deduplicate STDIN and print the results to STDOUT:
+        cat file | dedup
+
+    Deduplicate the contents of %s and print the results to STDOUT:
+        dedup file
+
+    Deduplicate the contents of %s and overwrite it:
+        dedup -w file
+`
+		msg := fmt.Sprintf(template, "`file`", "`file`")
+
+		fmt.Fprintf(os.Stderr, strings.TrimPrefix(msg, "\n"))
+	}
+
 	writePtr := flag.Bool("w", false, "If provided a filename, modify it in-place.")
 	flag.Parse()
 	write := *writePtr
