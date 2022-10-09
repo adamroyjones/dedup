@@ -1,13 +1,25 @@
 * dedup
 The Unix utility =uniq= removes adjacent duplicates from a =\n=-separated
-collection of input strings. This repository contains a completely trivial
-program that removes /all/ duplicates from such a collection. The program
-preserves the order of the input.
+collection of input strings. This repository contains a program that removes
+/all/ duplicates from such a collection. The program preserves the order of the
+input.
 
-I make no claims about the implementation being optimal. For my current
-purposes, it is good enough.
+The implementation is naive and simplistic but, for my current purposes, it is
+good enough.
 
 ** Installing
 #+begin_src sh
 go install gitlab.com/adamroyjones/dedup@latest
+#+end_src
+
+** Usage
+#+begin_src sh
+# Deduplicates the input and prints the result to STDOUT.
+cat filename | dedup
+
+# Deduplicates the contents of =filename= and prints the result to STDOUT.
+dedup filename
+
+# Deduplicates the contents of =filename= and writes the results to =filename=.
+dedup -w filename # Overwrites filename.
 #+end_src
