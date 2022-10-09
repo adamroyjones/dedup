@@ -11,7 +11,7 @@ good enough.
 ## Installing
 
 ```sh
-go install gitlab.com/adamroyjones/dedup@latest
+go install github.com/adamroyjones/dedup@latest
 ```
 
 ## Usage
