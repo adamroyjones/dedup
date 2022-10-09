@@ -5,3 +5,8 @@ program that removes /all/ duplicates from such a collection. It preserves the
 order of the input.
 
 I make no claims about this being optimal. For my purposes, this is good enough.
+
+** Installing
+#+begin_src sh
+go install gitlab.com/adamroyjones/dedup@latest
+#+end_src
