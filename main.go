@@ -12,18 +12,18 @@ func main() {
 	flag.Usage = func() {
 		fmt.Fprintln(os.Stderr, `dedup: Deduplicate identical lines from the input.
 
-This program is an equivalent to uniq(1) without the adjacency condition on its
+This program is an analogue of uniq without the adjacency condition on its
 lines. See github.com/adamroyjones/dedup.
 
 Usage:
-    Deduplicate STDIN and print the results to STDOUT:
-        cat file | dedup
+  Deduplicate STDIN and print the results to STDOUT:
+    cat file | dedup
 
-    Deduplicate the contents of a file and print the results to STDOUT:
-        dedup [file]
+  Deduplicate the contents of a file and print the results to STDOUT:
+    dedup file
 
-    Deduplicate the contents of a file and overwrite it:
-        dedup -w [file]`)
+  Deduplicate the contents of a file and overwrite it:
+    dedup -w file`)
 	}
 
 	var write bool

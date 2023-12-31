@@ -37,8 +37,8 @@ Usage:
         cat file | dedup
 
     Deduplicate the contents of a file and print the results to STDOUT:
-        dedup [file]
+        dedup file
 
     Deduplicate the contents of a file and overwrite it:
-        dedup -w [file]
+        dedup -w file
 ```
