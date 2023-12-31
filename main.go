@@ -36,22 +36,15 @@ Usage:
 	}
 }
 
-func dedup(args []string, write bool) error {
+func dedup(args []string, write bool) (err error) {
 	in, out, err := preparePipes(args, write)
 	if err != nil {
 		return err
 	}
-	defer in.Close()
-	defer out.Close()
+	defer func() { err = errors.Join(err, in.Close(), out.Close()) }()
 
-	dedupedLines := dedupLines(in)
-	for _, line := range dedupedLines {
-		if _, err := out.WriteString(line + "\n"); err != nil {
-			if closeErr := out.Close(); closeErr != nil {
-				return fmt.Errorf("writing the deduplicated lines: %w; error when closing the destination: %w", err, closeErr)
-			}
-			return fmt.Errorf("writing the deduplicated lines: %w", err)
-		}
+	if err := dedupLines(out, in); err != nil {
+		return fmt.Errorf("writing the deduplicated lines: %w", err)
 	}
 
 	if write {
@@ -113,20 +106,22 @@ func preparePipes(args []string, write bool) (*os.File, *os.File, error) {
 	}
 }
 
-func dedupLines(in *os.File) []string {
-	var line string
-	var out []string
-
+func dedupLines(out, in *os.File) error {
 	dedupedLines := map[string]struct{}{}
 
 	scanner := bufio.NewScanner(in)
+	var line string
 	for scanner.Scan() {
 		line = scanner.Text()
-		if _, ok := dedupedLines[line]; !ok {
-			out = append(out, line)
-			dedupedLines[line] = struct{}{}
+		if _, ok := dedupedLines[line]; ok {
+			continue
 		}
+
+		if _, err := out.WriteString(line + "\n"); err != nil {
+			return fmt.Errorf("writing a line to the output file: %w", err)
+		}
+		dedupedLines[line] = struct{}{}
 	}
 
-	return out
+	return nil
 }
