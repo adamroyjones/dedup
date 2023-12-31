@@ -8,11 +8,11 @@ import (
 	"os"
 )
 
-const version = "0.0.6"
+const version = "0.0.7"
 
 func main() {
 	flag.Usage = func() {
-		fmt.Fprintln(os.Stderr, `dedup: Deduplicate identical lines from the input.
+		fmt.Fprintln(os.Stderr, `dedup: Remove duplicate lines from standard input or a file.
 
 This program is an analogue of uniq without the adjacency condition on its
 lines. See github.com/adamroyjones/dedup.
