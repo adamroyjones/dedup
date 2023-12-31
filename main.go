@@ -112,15 +112,16 @@ func preparePipes(args []string, write bool) (*os.File, *os.File, error) {
 
 func dedupLines(in *os.File) []string {
 	var line string
-	dedupedLines := map[string]bool{}
 	var out []string
+
+	dedupedLines := map[string]struct{}{}
 
 	scanner := bufio.NewScanner(in)
 	for scanner.Scan() {
 		line = scanner.Text()
 		if _, ok := dedupedLines[line]; !ok {
 			out = append(out, line)
-			dedupedLines[line] = true
+			dedupedLines[line] = struct{}{}
 		}
 	}
 
