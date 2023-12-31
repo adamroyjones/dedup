@@ -8,6 +8,8 @@ import (
 	"os"
 )
 
+const version = "0.0.6"
+
 func main() {
 	flag.Usage = func() {
 		fmt.Fprintln(os.Stderr, `dedup: Deduplicate identical lines from the input.
@@ -23,14 +25,23 @@ Usage:
     dedup file
 
   Deduplicate the contents of a file and overwrite it:
-    dedup -w file`)
+    dedup -w file
+
+  Print version information and exit
+    dedup -v`)
 	}
 
-	var write bool
-	flag.BoolVar(&write, "w", false, "If provided a filename, modify it in-place.")
+	var v, w bool
+	flag.BoolVar(&v, "v", false, "Print version information and exit.")
+	flag.BoolVar(&w, "w", false, "If provided a filename, modify it in-place.")
 	flag.Parse()
 
-	if err := dedup(os.Args, write); err != nil {
+	if v {
+		fmt.Println("dedup version " + version)
+		os.Exit(0)
+	}
+
+	if err := dedup(os.Args, w); err != nil {
 		fmt.Fprintln(os.Stderr, "dedup: "+err.Error())
 		os.Exit(1)
 	}
