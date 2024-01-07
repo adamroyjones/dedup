@@ -25,6 +25,6 @@ go install github.com/adamroyjones/dedup@latest
 
 ## Usage
 
-```console
-$ dedup -h
+```sh
+dedup -h
 ```
