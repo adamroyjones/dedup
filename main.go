@@ -12,7 +12,7 @@ const version = "0.0.7"
 
 func main() {
 	flag.Usage = func() {
-		fmt.Fprintln(os.Stderr, `dedup: Remove duplicate lines from standard input or a file.
+		fmt.Fprintln(os.Stdout, `dedup: Remove duplicate lines from standard input or a file.
 
 This program is an analogue of uniq without the adjacency condition on its
 lines. See github.com/adamroyjones/dedup.
