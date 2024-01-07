@@ -27,21 +27,4 @@ go install github.com/adamroyjones/dedup@latest
 
 ```console
 $ dedup -h
-dedup: Remove duplicate lines from standard input or a file.
-
-This program is an analogue of uniq without the adjacency condition on its
-lines. See github.com/adamroyjones/dedup.
-
-Usage:
-  Deduplicate STDIN and print the results to STDOUT:
-    cat file | dedup
-
-  Deduplicate the contents of a file and print the results to STDOUT:
-    dedup file
-
-  Deduplicate the contents of a file and overwrite it:
-    dedup -w file
-
-  Print version information and exit
-    dedup -v
 ```
