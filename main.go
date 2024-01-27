@@ -27,7 +27,7 @@ Usage:
   Deduplicate the contents of a file and overwrite it:
     dedup -w file
 
-  Print version information and exit
+  Print version information and exit:
     dedup -v`)
 	}
 
