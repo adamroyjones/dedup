@@ -109,19 +109,24 @@ func preparePipes(args []string, write bool) (*os.File, *os.File, error) {
 func dedupLines(out, in *os.File, ignoreCase bool) error {
 	dedupedLines := map[string]struct{}{}
 
+	var line, lineToMatch string
 	scanner := bufio.NewScanner(in)
 	for scanner.Scan() {
-		line := scanner.Text()
+		line = scanner.Text()
 
-		lineToMatch := line
 		if ignoreCase {
-			lineToMatch = strings.ToLower(lineToMatch)
-		}
-		if _, ok := dedupedLines[lineToMatch]; ok {
-			continue
+			lineToMatch = strings.ToLower(line)
+			if _, ok := dedupedLines[lineToMatch]; ok {
+				continue
+			}
+			dedupedLines[lineToMatch] = struct{}{}
+		} else {
+			if _, ok := dedupedLines[line]; ok {
+				continue
+			}
+			dedupedLines[line] = struct{}{}
 		}
 
-		dedupedLines[lineToMatch] = struct{}{}
 		if _, err := out.WriteString(line + "\n"); err != nil {
 			return fmt.Errorf("writing a line to the output file: %w", err)
 		}
